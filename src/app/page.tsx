@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { marked } from "marked";
 import {
   GoogleGenerativeAI,
   HarmCategory,
@@ -23,19 +24,24 @@ const MODEL_NAME = "gemini-1.5-flash-latest";
 const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY as string;
 
 export default function Home() {
-  const [messages, setMessages] = useState<{ role: "user" | "model"; text: string }[]>([]);
+  const [messages, setMessages] = useState<
+    { role: "user" | "model"; text: string }[]
+  >([]);
   const [userPrompts, setUserPrompts] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
   useEffect(() => {
     setMessages([
       {
-        role: 'user',
-        text: "Hi, You can chat with the AI bot here.",
-        // sender: "bot",
+        role: "user",
+        text: "Hello, This is Ravian AI chat bot. If you have any questions, you can ask it.",
       },
     ]);
   }, []);
 
   async function run(prompt: string) {
+    setLoading(true);
+
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
       model: MODEL_NAME,
@@ -77,12 +83,18 @@ export default function Home() {
       })),
     });
 
-    const result = await chatSession.sendMessage(userPrompts);
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { role: "user", text: userPrompts },
-      { role: "model", text: result.response.text() },
-    ]);
+    try {
+      const result = await chatSession.sendMessage(userPrompts);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { role: "user", text: userPrompts },
+        { role: "model", text: result.response.text() },
+      ]);
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoading(false); 
+    }
   }
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -91,43 +103,51 @@ export default function Home() {
     await run(userPrompts);
     setUserPrompts("");
   };
+
   return (
-    <main className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="flex flex-col items-center justify-center">
-        <Card className="w-full max-w-lg shadow-none border-none">
-          <CardHeader className="flex flex-col items-center text-center">
+      <main className="flex flex-col items-center w-full px-4 py-0">
+        <Card className="w-full max-w-3xl shadow-none border-none">
+          <CardHeader className="text-center">
             <CardTitle>Chat with AI</CardTitle>
             <CardDescription>You can enter your prompts below.</CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col space-y-4 h-96 overflow-auto">
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={cn(
-                  "flex w-full max-w-[75%] gap-2 px-3 py-2 rounded-lg text-sm",
-                  message.role === "user"
-                    ? "ml-auto bg-primary text-primary-foreground"
-                    : "bg-muted"
-                )}
-              >
-                <Avatar className="size-6">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                {message.text}
-              </div>
-            ))}
+          <CardContent>
+            <div className="w-full flex flex-col space-y-4 rounded-lg overflow-auto h-[65vh]">
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={cn(
+                    "flex max-w-[75%] gap-2 rounded-lg px-3 py-2 text-sm",
+                    message.role === "user"
+                      ? "ml-auto bg-primary text-primary-foreground"
+                      : "bg-muted"
+                  )}
+                >
+                  <Avatar className="size-6">
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <div
+                    className="prose"
+                    dangerouslySetInnerHTML={{ __html: marked(message.text) }}
+                  />
+                </div>
+              ))}
+            </div>
           </CardContent>
           <CardFooter>
             <Form
               onSubmit={onSubmit}
               userPrompts={userPrompts}
               setUserPrompts={setUserPrompts}
+              loading={loading} 
             />
           </CardFooter>
         </Card>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
+
