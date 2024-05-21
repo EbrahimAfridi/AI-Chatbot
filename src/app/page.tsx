@@ -18,6 +18,7 @@ import {
   HarmBlockThreshold,
 } from "@google/generative-ai";
 import { useEffect, useState } from "react";
+import Header from "@/components/ui/Header";
 
 const MODEL_NAME = "gemini-1.5-flash-latest";
 const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY as string;
@@ -28,8 +29,9 @@ export default function Home() {
   useEffect(() => {
     setMessages([
       {
+        role: 'user',
         text: "Hello, I am an Ravian AI chat bot. If you have any questions, you can ask me.",
-        sender: "bot",
+        // sender: "bot",
       },
     ]);
   }, []);
@@ -91,7 +93,8 @@ export default function Home() {
     setUserPrompts("");
   };
   return (
-    <main className="flex min-h-screen items-center justify-center">
+    <main className="flex flex-col min-h-screen">
+      <Header />
       <Card className="flex flex-col justify-center items-center px-4 shadow-none border-none">
         <CardHeader className="flex justify-center text-center">
           <CardTitle>Chat with AI</CardTitle>
