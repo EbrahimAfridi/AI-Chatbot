@@ -119,7 +119,7 @@ export default function Home() {
                 <div
                   key={index}
                   className={cn(
-                    "flex max-w-[75%] gap-2 rounded-lg px-3 py-2 text-sm",
+                    "flex max-w-[75%] gap-2 rounded-lg px-[0.45rem] md:px-3 py-2 text-xs md:text-sm",
                     message.role === "user"
                       ? "ml-auto bg-primary text-primary-foreground"
                       : "bg-muted"
@@ -127,7 +127,7 @@ export default function Home() {
                 >
                   <Avatar className="size-6">
                     <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback>EA</AvatarFallback>
                   </Avatar>
                   <div
                     className="prose"

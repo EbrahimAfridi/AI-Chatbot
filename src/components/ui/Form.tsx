@@ -4,12 +4,11 @@ import { Send } from "lucide-react";
 import { Input } from "./input";
 import { ReloadIcon } from "@radix-ui/react-icons";
 
-
 interface FormProps {
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   userPrompts: string;
   setUserPrompts: (value: string) => void;
-  loading: boolean; 
+  loading: boolean;
 }
 
 const Form: React.FC<FormProps> = ({
@@ -34,19 +33,21 @@ const Form: React.FC<FormProps> = ({
           className="flex-grow w-[85%]"
           disabled={loading}
         />
-        {loading === false ? <Button
-          type="submit"
-          className="w-[15%] gap-1 flex justify-center"
-          // disabled={loading}
-        >
-          <Send className="h-3.5 w-3.5" />
-          <span>Send</span>
-        </Button>
-        :
-        <Button disabled>
-          <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-          Please wait
-        </Button>}
+        {loading === false ? (
+          <Button
+            type="submit"
+            className="w-[15%] gap-1 flex justify-center"
+            // disabled={loading}
+          >
+            <Send className="h-0 md:h-3.5 w-0 md:w-3.5" />
+            <span className="text-xs md:text-sm">Send</span>
+          </Button>
+        ) : (
+          <Button disabled>
+            <ReloadIcon className="mr-2 h-3 w-3 md:h-4 md:w-4 animate-spin" />
+            <span className="text-xs md-text-sm">Please wait</span>
+          </Button>
+        )}
       </div>
     </form>
   );

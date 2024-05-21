@@ -11,16 +11,13 @@ const ThemeToggle = () => {
 
   return (
     <Toggle
-      variant={'default'}
-      size="lg"
+      variant={"default"}
+      size={'sm'}
+      className="md:text-2xl font-bold heading-link px-0 md:px-2"
       onClick={toggleTheme}
       aria-label="Toggle italic"
     >
-      {theme === "light" ? (
-        <Moon/>
-      ) : (
-        <SunIcon />
-      )}
+      {theme === "light" ? <Moon /> : <SunIcon />}
     </Toggle>
   );
 };
