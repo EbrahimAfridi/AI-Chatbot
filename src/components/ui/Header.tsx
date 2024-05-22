@@ -5,7 +5,7 @@ import "../../styles/header.css";
 
 const Header = () => {
   return (
-    <header className="w-full p-2 mb-2 md:mb-5">
+    <header className="w-full p-2 mb-2 md:mb-5 pt-2">
       <div className="flex items-center justify-between max-w-[88rem] mx-auto">
         <a href="https://ravian.ai/" target="_blank">
           <h1 className="text-sm md:text-2xl font-bold heading-link">
