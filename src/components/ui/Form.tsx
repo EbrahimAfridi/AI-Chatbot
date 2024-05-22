@@ -22,7 +22,7 @@ const Form: React.FC<FormProps> = ({
   };
 
   return (
-    <form onSubmit={onSubmit} className="mt-4 w-full max-w-3xl">
+    <form onSubmit={onSubmit} className="w-full max-w-3xl">
       <div className="flex items-center space-x-2">
         <Input
           type="text"
