@@ -7,10 +7,8 @@ const Header = () => {
   return (
     <header className="w-full p-2 mb-2 md:mb-5 pt-2">
       <div className="flex items-center justify-between max-w-[88rem] mx-auto">
-        <a href="https://ravian.ai/" target="_blank">
-          <h1 className="text-sm md:text-2xl font-bold heading-link">
-            RAVIAN AI
-          </h1>
+        <a href="https://ai-chatbot-sooty.vercel.app/" target="_blank">
+          <h1 className="text-sm md:text-2xl font-bold heading-link">XYZ AI</h1>
         </a>
         <div className="flex items-center justify-start gap-4 mr-6">
           <ThemeToggle />

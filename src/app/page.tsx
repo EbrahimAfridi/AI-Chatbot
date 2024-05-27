@@ -33,7 +33,7 @@ export default function Home() {
     setMessages([
       {
         role: "user",
-        text: "Hello, This is Ravian AI chat bot. If you have any questions, you can ask it.",
+        text: "Hello, This is XYZ AI chat bot. If you have any questions, you can ask it.",
       },
     ]);
   }, []);
