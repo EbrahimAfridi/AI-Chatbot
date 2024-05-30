@@ -9,7 +9,7 @@ const fontSans = FontSans({
   variable: "--font-sans",
 });
 export const metadata: Metadata = {
-  title: "Ravian AI",
+  title: "XYZ AI",
   description: "I'm a ai chatbot, let's have a chat!",
 };
 
