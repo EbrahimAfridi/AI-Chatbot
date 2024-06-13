@@ -93,7 +93,6 @@ export default function Home() {
   //   } catch (error) {
   //     console.error("Error:", error);
   //   } finally {
-<<<<<<< HEAD
   //     setLoading(false); 
   //   }
   // }
@@ -104,14 +103,11 @@ export default function Home() {
   //   await run(userPrompts);
   //   setUserPrompts("");
   // };
-
-=======
   //     setLoading(false);
   //   }
   // }
 
   // NEW
->>>>>>> 670aff8 (fix: rate limiting of api)
   const throttledRun = throttle(async (prompt: string) => {
     setLoading(true);
 
