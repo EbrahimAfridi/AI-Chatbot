@@ -93,6 +93,7 @@ export default function Home() {
   //   } catch (error) {
   //     console.error("Error:", error);
   //   } finally {
+<<<<<<< HEAD
   //     setLoading(false); 
   //   }
   // }
@@ -104,6 +105,13 @@ export default function Home() {
   //   setUserPrompts("");
   // };
 
+=======
+  //     setLoading(false);
+  //   }
+  // }
+
+  // NEW
+>>>>>>> 670aff8 (fix: rate limiting of api)
   const throttledRun = throttle(async (prompt: string) => {
     setLoading(true);
 
@@ -208,7 +216,7 @@ export default function Home() {
               onSubmit={onSubmit}
               userPrompts={userPrompts}
               setUserPrompts={setUserPrompts}
-              loading={loading} 
+              loading={loading}
             />
           </CardFooter>
         </Card>
@@ -216,4 +224,3 @@ export default function Home() {
     </div>
   );
 }
-
