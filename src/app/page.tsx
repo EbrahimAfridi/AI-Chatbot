@@ -1,4 +1,5 @@
 "use client";
+import throttle from "lodash/throttle";
 import {
   Card,
   CardContent,
