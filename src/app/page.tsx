@@ -38,7 +38,72 @@ export default function Home() {
     ]);
   }, []);
 
-  async function run(prompt: string) {
+  // async function run(prompt: string) {
+  //   setLoading(true);
+
+  //   const genAI = new GoogleGenerativeAI(apiKey);
+  //   const model = genAI.getGenerativeModel({
+  //     model: MODEL_NAME,
+  //   });
+
+  //   const generationConfig = {
+  //     temperature: 1,
+  //     topP: 0.95,
+  //     topK: 64,
+  //     maxOutputTokens: 8192,
+  //     responseMimeType: "text/plain",
+  //   };
+
+  //   const safetySettings = [
+  //     {
+  //       category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+  //       threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+  //     },
+  //     {
+  //       category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+  //       threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+  //     },
+  //     {
+  //       category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+  //       threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+  //     },
+  //     {
+  //       category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+  //       threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+  //     },
+  //   ];
+
+  //   const chatSession = model.startChat({
+  //     generationConfig,
+  //     safetySettings,
+  //     history: messages.map((msg) => ({
+  //       role: msg.role,
+  //       parts: [{ text: msg.text }],
+  //     })),
+  //   });
+
+  //   try {
+  //     const result = await chatSession.sendMessage(userPrompts);
+  //     setMessages((prevMessages) => [
+  //       ...prevMessages,
+  //       { role: "user", text: userPrompts },
+  //       { role: "model", text: result.response.text() },
+  //     ]);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   } finally {
+  //     setLoading(false); 
+  //   }
+  // }
+
+  // const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   if (userPrompts.trim() === "") return;
+  //   await run(userPrompts);
+  //   setUserPrompts("");
+  // };
+
+  const throttledRun = throttle(async (prompt: string) => {
     setLoading(true);
 
     const genAI = new GoogleGenerativeAI(apiKey);
@@ -92,14 +157,15 @@ export default function Home() {
     } catch (error) {
       console.error("Error:", error);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
-  }
+  }, 60000);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (userPrompts.trim() === "") return;
-    await run(userPrompts);
+    // await run(userPrompts);
+    await throttledRun(userPrompts);
     setUserPrompts("");
   };
 
