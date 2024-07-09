@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/context/ThemeContext";
 
-export const inter = Inter({ subsets: ["latin"] });
 
 export const space_grotesk = Space_Grotesk({
   weight: ["400", "500", "700"],
