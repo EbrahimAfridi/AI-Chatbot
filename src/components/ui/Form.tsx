@@ -30,7 +30,7 @@ const Form: React.FC<FormProps> = ({
           name="prompt"
           value={userPrompts}
           onChange={handleChange}
-          className="flex-grow w-[85%]"
+          className="flex-grow w-[85%] p-4"
           disabled={loading}
         />
         {loading === false ? (
