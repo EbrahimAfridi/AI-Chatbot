@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/context/ThemeContext";
 
 
-export const space_grotesk = Space_Grotesk({
+const space_grotesk = Space_Grotesk({
   weight: ["400", "500", "700"],
   subsets: ["latin"],
   display: "swap",
