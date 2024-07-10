@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { ThemeProvider } from "@/context/ThemeContext";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 
 const space_grotesk = Space_Grotesk({
@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-background pt-0 pb-20 font-sans antialiased overflow-hidden md:overflow-auto",
@@ -31,7 +31,14 @@ export default function RootLayout({
         )}
         style={{ fontFamily: "var(--font-space-grotesk)" }}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
